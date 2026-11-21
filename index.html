@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>WorthWise – AI Finance Learning</title>
+<style>
+:root{--bg:#fbf8f1;--card:#fff;--tx:#2b2d3a;--mut:#6d7085;--lav:#d9d2f7;--mint:#cdeee0;--peach:#ffdccb;--yel:#fff1b8;--line:#ece7f5;--pri:#7b6cd9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171a2e;--card:#22264266;--tx:#eef0ff;--mut:#a9aed0;--lav:#3a3470;--mint:#1f4a40;--peach:#5a3a30;--yel:#524a22;--line:#33385c;--pri:#b4a8ff}}
+:root[data-theme="dark"]{--bg:#171a2e;--card:#222642;--tx:#eef0ff;--mut:#a9aed0;--lav:#3a3470;--mint:#1f4a40;--peach:#5a3a30;--yel:#524a22;--line:#33385c;--pri:#b4a8ff}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:Poppins,system-ui,-apple-system,Segoe UI,sans-serif;line-height:1.5}
+header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;background:linear-gradient(120deg,var(--lav),var(--mint));z-index:5}
+header b{font-size:20px}header small{display:block;color:var(--mut);font-size:11px}
+.pill{background:var(--card);border-radius:20px;padding:4px 10px;font-size:13px;margin-left:6px;display:inline-block}
+nav{display:flex;gap:8px;overflow-x:auto;padding:12px 14px;position:sticky;top:0;background:var(--bg);z-index:4}
+nav button{border:0;border-radius:18px;padding:8px 14px;background:var(--card);color:var(--tx);white-space:nowrap;cursor:pointer;font-size:14px;box-shadow:0 1px 4px #0001}
+nav button.on{background:var(--pri);color:#fff}
+main{max-width:900px;margin:auto;padding:6px 14px 40px}
+section{display:none}section.on{display:block}
+.card{background:var(--card);border-radius:20px;padding:16px;margin:12px 0;box-shadow:0 4px 16px #7b6cd922;border:1px solid var(--line)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{border-radius:20px;padding:16px;cursor:pointer;border:0;text-align:left;color:#2b2d3a;font:inherit}
+.tile h3{margin:0 0 4px;font-size:16px}.tile p{margin:0;font-size:12px}
+.t1{background:var(--lav)}.t2{background:var(--mint)}.t3{background:var(--peach)}.t4{background:var(--yel)}
+.big{font-size:30px;font-weight:700}
+input,select,textarea{width:100%;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--tx);font:inherit;margin:4px 0 8px}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:14px;padding:10px 18px;cursor:pointer;font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:110px}
+.chat{height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding:6px}
+.m{max-width:85%;padding:9px 13px;border-radius:16px;font-size:14px}
+.u{align-self:flex-end;background:var(--lav)}.a{align-self:flex-start;background:var(--mint)}
+.chips button{border:0;background:var(--yel);color:#2b2d3a;border-radius:14px;padding:6px 10px;margin:3px;cursor:pointer;font-size:12px}
+.meter{height:14px;border-radius:9px;background:var(--line);overflow:hidden}.meter i{display:block;height:100%;width:0;transition:width .6s}
+.flag{background:var(--peach);color:#2b2d3a;border-radius:12px;padding:6px 10px;margin:5px 0;font-size:13px}
+.ok{background:var(--mint)}
+table{width:100%;border-collapse:collapse;font-size:14px}td,th{padding:6px;border-bottom:1px solid var(--line);text-align:left}
+.note{font-size:12px;color:var(--mut)}
+canvas{max-height:260px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--pri);outline-offset:2px}html{font-size:var(--fs,16px)}.opt{display:block;width:100%;text-align:left;margin:5px 0;background:var(--bg);color:var(--tx);border:1px solid var(--line);border-radius:12px;padding:10px;cursor:pointer;font:inherit}.good{background:var(--mint)!important;color:#2b2d3a}.bad{background:var(--peach)!important;color:#2b2d3a}.flip{cursor:pointer}
+
+.big-e{font-size:44px}.ep{display:flex;gap:12px;align-items:center}
+</style></head><body>
+<header><div><b>🌸 WorthWise</b><small data-h="आज सीखो, कल अपने पैसे की कमान संभालो।">Learn today, lead your money tomorrow.</small></div>
+<div><span class="pill">🔥 <span id="st">5</span></span><span class="pill">⭐ <span id="xp">120</span> XP</span><button class="pill" style="border:0;color:var(--tx);cursor:pointer" onclick="tg()" aria-label="Theme">🌓</button><button class="pill" id="lb" style="border:0;color:var(--tx);cursor:pointer" onclick="lt()" aria-label="Language">हिंदी</button></div></header>
+<nav id="nav" aria-label="Sections"></nav>
+<main>
+<section id="home" class="on">
+<div class="card"><h2 style="margin:0" data-h="नमस्ते, दिनल 👋">Hi, Dinal 👋</h2><p class="note" data-h="आज का चैलेंज: एक स्कैम मैसेज पहचानो और बजट में एक खर्च जोड़ो।">Today's challenge: spot one scam message and add one expense in Budget.</p>
+<div class="row"><div><div class="note" data-h="फाइनेंशियल लर्निंग स्कोर">Financial Learning Score</div><div class="big">72/100</div></div><div><div class="note" data-h="साप्ताहिक लक्ष्य">Weekly goal</div><div class="meter"><i id="wk" style="background:var(--pri)"></i></div></div></div></div>
+<div class="card" style="background:var(--yel);color:#2b2d3a">💡 <b data-h="आज का फाइनेंस फैक्ट:">Daily Finance Fact:</b> <span id="fact"></span></div>
+<div class="grid" id="tiles"></div>
+<p class="note" data-h="यह एक शैक्षिक डेमो है। डमी AI मॉडल, वर्चुअल पैसा, कोई असली लेन-देन या निवेश सलाह नहीं।">Educational demo. Dummy AI model, virtual money, no real transactions or investment advice.</p></section>
+
+<section id="ai"><div class="card"><h3 data-h="🧠 AI मनी असिस्टेंट">🧠 AI Money Assistant</h3><div class="chat" id="chat" aria-live="polite"><div class="m a" data-h="नमस्ते! मैं WorthWise हूँ। SIP, FD, टैक्स, बजट या स्कैम के बारे में पूछो।">Hi! I'm WorthWise. Ask me about SIPs, FDs, tax, budgets or scams.</div></div>
+<div class="chips" id="chips"></div><div class="row"><input id="q" aria-label="Question" placeholder="Type your question…" data-ph="अपना सवाल लिखो…" onkeydown="if(event.key==='Enter')ask()"><button class="btn" style="flex:0" onclick="ask()" data-h="भेजो">Send</button></div></div></section>
+
+<section id="scam"><div class="card"><h3 data-h="🛡️ स्कैम और फ्रॉड डिटेक्टर">🛡️ Scam &amp; Fraud Detector</h3><p class="note" data-h="कोई भी SMS, UPI रिक्वेस्ट या ऑफर पेस्ट करो।">Paste any SMS, UPI request or offer.</p>
+<textarea id="sm" rows="4" aria-label="Message" placeholder="e.g. Congratulations! Pay ₹1 to claim ₹50,000 cashback. Click bit.ly/xyz and enter your UPI PIN urgently" data-ph="जैसे: बधाई! ₹50,000 कैशबैक पाने के लिए ₹1 भेजो। bit.ly/xyz पर क्लिक करके UPI PIN डालो।"></textarea>
+<button class="btn" onclick="scan()" data-h="जाँचो">Analyze</button> <button class="btn" style="background:var(--peach);color:#2b2d3a" onclick="samp()" data-h="सैंपल आज़माओ">Try sample</button>
+<div id="sr" style="margin-top:12px"></div></div></section>
+
+<section id="budget"><div class="card"><h3 data-h="💰 स्मार्ट बजट">💰 Smart Budget</h3>
+<label for="inc" data-h="मासिक आय (₹)">Monthly income (₹)</label><input id="inc" type="number" value="15000" oninput="draw()">
+<div class="row"><input id="en" aria-label="Expense name" placeholder="Expense name" data-ph="खर्च का नाम"><input id="ea" type="number" aria-label="Amount" placeholder="₹ amount" data-ph="₹ रकम"><select id="ec" aria-label="Category"><option value="Food" data-h="खाना">Food</option><option value="Education" data-h="पढ़ाई">Education</option><option value="Entertainment" data-h="मनोरंजन">Entertainment</option><option value="Travel" data-h="यात्रा">Travel</option><option value="Shopping" data-h="शॉपिंग">Shopping</option><option value="Other" data-h="अन्य">Other</option></select><button class="btn" onclick="addE()" data-h="जोड़ो">Add</button></div>
+<div class="row"><div class="card" style="margin:6px 0"><div class="note" data-h="खर्च">Spent</div><b id="sp"></b></div><div class="card" style="margin:6px 0"><div class="note" data-h="बचा हुआ">Remaining</div><b id="rm"></b></div></div>
+<canvas id="bc"></canvas></div>
+<div class="card"><h3 data-h="🧬 स्पेंडDNA">🧬 SpendDNA</h3><p id="dna"></p><table id="tb"></table></div>
+<div class="card"><h3 data-h="🔁 सब्सक्रिप्शन डिटेक्टिव">🔁 Subscription Detective</h3>
+<div class="row"><input id="sn" aria-label="Name" placeholder="e.g. Netflix" data-ph="जैसे: Netflix"><input id="sa" type="number" aria-label="Amount" placeholder="₹ amount" data-ph="₹ रकम"><select id="sf" aria-label="Frequency"><option value="12" data-h="मासिक">Monthly</option><option value="1" data-h="सालाना">Yearly</option></select><button class="btn" onclick="addS()" data-h="जोड़ो">Add</button></div><div id="so"></div></div></section>
+
+<section id="grow"><div class="card"><h3 data-h="⏳ फाइनेंशियल टाइम मशीन">⏳ Financial Time Machine</h3><p class="note" data-h="अगर आप हर महीने निवेश करें तो? (उदाहरण मात्र, मानी हुई दर)">What if you invest every month? (illustrative, assumed return)</p>
+<div class="row"><div><span data-h="मासिक ₹">Monthly ₹</span> <b id="v1"></b><input id="s1" type="range" aria-label="Monthly amount" min="100" max="10000" step="100" value="1000" oninput="tm()"></div>
+<div><span data-h="साल">Years</span> <b id="v2"></b><input id="s2" type="range" aria-label="Years" min="1" max="30" value="10" oninput="tm()"></div>
+<div><span data-h="रिटर्न % सालाना">Return % p.a.</span> <b id="v3"></b><input id="s3" type="range" aria-label="Return" min="4" max="15" value="10" oninput="tm()"></div></div>
+<div class="row"><div class="card" style="margin:6px 0"><span data-h="आप निवेश करते हैं">You invest</span><div class="big" id="r1" style="font-size:22px"></div></div><div class="card" style="margin:6px 0"><span data-h="बढ़कर हो सकता है">Could grow to</span><div class="big" id="r2" style="font-size:22px"></div></div></div>
+<canvas id="tc"></canvas><p class="note" data-h="रिटर्न अनुमान हैं, गारंटी नहीं। बाज़ार निवेश में जोखिम होता है।">Returns are assumptions, not guarantees. Market investments carry risk.</p></div>
+<div class="card"><h3 data-h="📉 महंगाई सिमुलेटर">📉 Inflation Simulator</h3>
+<div class="row"><div><label for="ia" data-h="आज की रकम (₹)">Amount today (₹)</label><input id="ia" type="number" value="100000" oninput="infl()"></div><div><label for="iy" data-h="साल">Years</label><input id="iy" type="number" value="10" min="1" max="40" oninput="infl()"></div><div><label for="ir" data-h="महंगाई % सालाना">Inflation % p.a.</label><input id="ir" type="number" value="6" step="0.5" oninput="infl()"></div></div>
+<div id="io"></div><canvas id="ic"></canvas></div></section>
+
+<section id="tax"><div class="card"><h3 data-h="🧾 टैक्स हेल्पर (FY 2026-27)">🧾 Tax Helper (FY 2026-27)</h3><p class="note" data-h="पुरानी बनाम नई टैक्स व्यवस्था, 60 वर्ष से कम के वेतनभोगी भारतीय निवासी के लिए। केवल उदाहरण।">Old vs New regime, for a resident salaried individual under 60. Illustrative only.</p>
+<label for="txg" data-h="सालाना सैलरी (₹)">Annual salary (₹)</label><input id="txg" type="number" value="1500000" oninput="tax()">
+<label for="tx80" data-h="80C निवेश (₹, अधिकतम 1,50,000 गिना जाएगा)">80C investments (₹, max 1,50,000 counted)</label><input id="tx80" type="number" value="150000" oninput="tax()">
+<label for="txo" data-h="अन्य कटौतियाँ: 80D, HRA, होम-लोन ब्याज (₹)">Other deductions: 80D, HRA, home-loan interest (₹)</label><input id="txo" type="number" value="100000" oninput="tax()">
+<div id="txr"></div><p class="note" data-h="उपयोग किए गए स्लैब: नई व्यवस्था 0–4L शून्य, 5%, 10%, 15%, 20%, 25%, 24L से ऊपर 30%; स्टैंडर्ड डिडक्शन ₹75,000; कर योग्य आय ≤ ₹12L पर ₹60,000 तक रिबेट। पुरानी व्यवस्था 0–2.5L शून्य, 5%, 20% (5–10L), 30%; स्टैंडर्ड डिडक्शन ₹50,000; 4% सेस। incometax.gov.in पर जाँच लें। यह टैक्स सलाह नहीं है।">Slabs used: New regime 0–4L nil, 5%, 10%, 15%, 20%, 25%, 30% above 24L; standard deduction ₹75,000; rebate up to ₹60,000 for taxable income ≤ ₹12L. Old regime 0–2.5L nil, 5%, 20% (5–10L), 30%; standard deduction ₹50,000; 4% cess. Verify on incometax.gov.in. Not tax advice.</p></div></section>
+
+<section id="watch"><div class="card"><h3 data-h="🎬 FinFlix – इंटरैक्टिव मिनी-सीरीज़">🎬 FinFlix – Interactive Mini-Series</h3><p class="note" data-h="कार्टून किरदारों के साथ ओरिजिनल कहानियाँ। हर एपिसोड में तुम फैसला लेते हो।">Original cartoon-style stories. You make the decisions in every episode.</p><div id="ep"></div></div>
+<div class="card"><h3 data-h="🎵 मनी राइम्स">🎵 Money Rhymes</h3><p class="note" data-h="🔊 दबाओ और राइम सुनो, फिर सीख पढ़ो।">Tap 🔊 to hear the rhyme, then read the lesson behind it.</p><div id="rh"></div></div></section>
+
+<section id="play"><div class="card"><h3 data-h="🎯 फाइनेंशियल IQ क्विज़">🎯 Financial IQ Quiz</h3><div id="qz"></div></div>
+<div class="card"><h3 data-h="🕵️ स्कैम डिटेक्टिव गेम">🕵️ Scam Detective Game</h3><div id="swipe"></div></div>
+<div class="card"><h3 data-h="⚖️ ज़रूरत बनाम चाहत">⚖️ Needs vs Wants</h3><div id="nvw"></div></div>
+<div class="card"><h3 data-h="🔍 मिथक बनाम तथ्य">🔍 Myth Buster</h3><p class="note" data-h="कार्ड पर टैप करो">Tap a card</p><div class="grid" id="my"></div></div></section>
+
+<section id="story"><div class="card"><h3 data-h="📖 मनी स्टोरी: आख़िरी ₹1,000">📖 Money Story: The Last ₹1,000</h3><div id="sb"></div></div></section>
+
+<section id="set"><div class="card"><h3 data-h="⚙️ सेटिंग्स और एक्सेसिबिलिटी">⚙️ Settings &amp; Accessibility</h3>
+<label for="lg" data-h="भाषा">Language</label><select id="lg" onchange="lang=this.value;apply()"><option value="en">English</option><option value="hi">हिन्दी</option></select>
+<label for="fsz" data-h="टेक्स्ट साइज़">Text size</label><select id="fsz" onchange="document.documentElement.style.setProperty('--fs',this.value)"><option value="16px" data-h="सामान्य">Normal</option><option value="18px" data-h="बड़ा">Large</option><option value="21px" data-h="बहुत बड़ा">Extra large</option></select>
+<label for="aiu" data-h="AI बैकएंड URL (वैकल्पिक, README देखें)">AI backend URL (optional, see README)</label><input id="aiu" placeholder="http://localhost:3000/ask" onchange="try{localStorage.setItem('aiurl',this.value.trim())}catch(e){}">
+<p class="note" data-h="खाली = डेमो मॉडल। बैकएंड URL देने पर असिस्टेंट असली AI मॉडल इस्तेमाल करता है; API key आपके सर्वर पर रहती है, ब्राउज़र में नहीं। सभी AI जवाब लेबल किए जाते हैं और केवल शैक्षिक हैं।">Empty = demo model. With a backend URL, the Assistant uses a real AI model; the API key stays on your server, never in the browser. All AI replies are labelled and educational only.</p></div></section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>window.Chart=window.Chart||class{destroy(){}};</script>
+<script>
+const $=id=>document.getElementById(id),R=n=>'₹'+Math.round(n).toLocaleString('en-IN');
+let lang='en',cur='home';const x=p=>p[lang==='hi'?1:0];
+const TABS=[['home','🏠 Home','🏠 होम'],['ai','🧠 AI Zone','🧠 AI ज़ोन'],['scam','🛡️ Scam Shield','🛡️ स्कैम शील्ड'],['budget','💰 Budget','💰 बजट'],['grow','📈 Grow','📈 ग्रो'],['tax','🧾 Tax','🧾 टैक्स'],['watch','🎬 Watch & Sing','🎬 देखो और गाओ'],['play','🎮 Play','🎮 खेलो'],['story','📖 Story','📖 कहानी'],['set','⚙️ Settings','⚙️ सेटिंग्स']];
+function nav(){$('nav').innerHTML=TABS.map(t=>`<button data-t="${t[0]}" class="${t[0]===cur?'on':''}" onclick="go('${t[0]}')">${x([t[1],t[2]])}</button>`).join('')}
+function go(id){cur=id;document.querySelectorAll('section').forEach(s=>s.classList.toggle('on',s.id===id));nav();if(id==='budget'){draw();subs()}if(id==='grow'){tm();infl()}if(id==='tax')tax();window.scrollTo(0,0)}
+function tg(){const r=document.documentElement;const d=getComputedStyle(r).getPropertyValue('--bg').trim()==='#171a2e';r.setAttribute('data-theme',d?'light':'dark')}
+function xp(n){$('xp').textContent=+$('xp').textContent+n;$('wk').style.width=Math.min(100,(+$('xp').textContent-100)*2+30)+'%'}
+function lt(){lang=lang==='en'?'hi':'en';apply()}
+const TILES=[['ai','🧠','AI Money Assistant','AI मनी असिस्टेंट','Ask anything','कुछ भी पूछो','t1'],['scam','🛡️','Scam Shield','स्कैम शील्ड','Spot fake UPI & SMS','नकली UPI और SMS पहचानो','t2'],['budget','💰','Smart Budget','स्मार्ट बजट','Expenses, SpendDNA, subscriptions','खर्च, स्पेंडDNA, सब्सक्रिप्शन','t3'],['grow','📈','Grow','ग्रो','SIP what-if & inflation','SIP क्या-अगर और महंगाई','t4'],['tax','🧾','Tax Helper','टैक्स हेल्पर','Old vs new regime','पुरानी बनाम नई व्यवस्था','t1'],['watch','🎬','FinFlix & Rhymes','फिनफ्लिक्स और राइम्स','Cartoon stories & songs','कार्टून कहानियाँ और गाने','t2'],['play','🎮','Play','खेलो','Quiz, games, myths','क्विज़, गेम, मिथक','t3'],['story','📖','Money Story','मनी स्टोरी','The Last ₹1,000','आख़िरी ₹1,000','t4']];
+function tiles(){$('tiles').innerHTML=TILES.map(t=>`<button class="tile ${t[6]}" onclick="go('${t[0]}')"><h3>${t[1]} ${x([t[2],t[3]])}</h3><p>${x([t[4],t[5]])}</p></button>`).join('')}
+const FACTS=[['Rule of 72: 72 ÷ return% ≈ years to double your money.','72 का नियम: 72 ÷ रिटर्न% ≈ पैसा दोगुना होने के साल।'],['Pay yourself first: save before you spend.','पहले खुद को पे करो: खर्च से पहले बचत।'],['No genuine UPI transaction needs a PIN to RECEIVE money.','पैसे RECEIVE करने के लिए किसी असली UPI ट्रांज़ैक्शन में PIN नहीं लगता।'],['Small SIPs started early beat big SIPs started late.','जल्दी शुरू की छोटी SIP, देर से शुरू की बड़ी SIP से बेहतर होती है।'],['Emergency fund target: 3 to 6 months of expenses.','इमरजेंसी फंड का लक्ष्य: 3 से 6 महीने का खर्च।']];
+function fact(){$('fact').textContent=x(FACTS[new Date().getDate()%FACTS.length])}
+/* AI assistant */
+const KB=[[/sip/,['A SIP (Systematic Investment Plan) invests a fixed amount in a mutual fund every month. It builds discipline and reduces the stress of timing the market. Returns are never guaranteed.','SIP (सिस्टमैटिक इन्वेस्टमेंट प्लान) में आप हर महीने एक तय रकम म्यूचुअल फंड में डालते हैं। इससे अनुशासन बनता है और मार्केट टाइमिंग की टेंशन कम होती है। रिटर्न की गारंटी नहीं होती।']],
+[/fd|fixed/,['An FD locks your money at a fixed rate. Low risk, but returns can lag inflation. A good place for an emergency fund.','FD में पैसा तय दर पर लॉक होता है। जोखिम कम, पर रिटर्न महंगाई से पीछे रह सकता है। इमरजेंसी फंड के लिए अच्छा विकल्प।']],
+[/index/,['An index fund copies a market index (like Nifty 50). Costs are low and you get instant diversification.','इंडेक्स फंड किसी मार्केट इंडेक्स (जैसे निफ्टी 50) की नकल करता है। खर्च कम और डाइवर्सिफिकेशन तुरंत मिलता है।']],
+[/tax|regime/,['The old regime has deductions (80C etc.); the new regime has lower rates but fewer deductions. Which is better depends on your income and deductions. Try the Tax tab!','पुरानी व्यवस्था में कटौतियाँ (80C आदि) मिलती हैं; नई में दरें कम पर कटौतियाँ कम। कौन सी बेहतर है यह आपकी आय और कटौतियों पर निर्भर है। टैक्स टैब आज़माओ!']],
+[/budget|save|saving|2000|bachat/,['Try the 50/30/20 rule: 50% needs, 30% wants, 20% savings. If you have ₹2,000, set aside ₹400 for a savings goal first.','50/30/20 नियम आज़माओ: 50% ज़रूरतें, 30% चाहतें, 20% बचत। अगर ₹2,000 हैं तो पहले ₹400 बचत लक्ष्य के लिए अलग रखो।']],
+[/scam|fraud|upi|otp/,['Golden rule: you never need a PIN to receive money. Decline unknown collect requests and never share an OTP. Paste any message in the Scam tab!','सुनहरा नियम: पैसे पाने के लिए PIN कभी नहीं डालना पड़ता। अनजान कलेक्ट रिक्वेस्ट मना करो और OTP किसी को मत बताओ। स्कैम टैब में मैसेज चेक करो!']],
+[/risk|portfolio|diversif/,['Diversification means not putting all your eggs in one basket. A mix of equity, debt and gold spreads risk.','डाइवर्सिफिकेशन यानी सारे अंडे एक टोकरी में न रखना। इक्विटी, डेट और गोल्ड का मिश्रण जोखिम बाँटता है।']]];
+const FB=['Good question! In demo mode I know SIP, FD, index funds, tax, budgeting, risk and scams.','अच्छा सवाल! डेमो मोड में मैं SIP, FD, इंडेक्स फंड, टैक्स, बजट, जोखिम और स्कैम समझता हूँ।'];
+const CH=[['What is a SIP?','SIP क्या है?'],['FD vs index fund','FD बनाम इंडेक्स फंड'],['Old vs new tax regime','पुरानी बनाम नई टैक्स व्यवस्था'],['I have ₹2,000. How do I start saving?','मेरे पास ₹2,000 हैं। बचत कैसे शुरू करूँ?'],['How do I avoid UPI scams?','UPI स्कैम से कैसे बचूँ?']];
+function chips(){$('chips').innerHTML=CH.map((c,i)=>`<button onclick="chip(${i})">${x(c)}</button>`).join('')}
+function chip(i){$('q').value=x(CH[i]);ask()}
+function say(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;$('chat').appendChild(d);$('chat').scrollTop=1e5;return d}
+async function ask(){const t=$('q').value.trim();if(!t)return;say(t,'u');$('q').value='';const w=say('…','a');let u='';try{u=localStorage.getItem('aiurl')||''}catch(e){}
+if(u){try{const r=await fetch(u,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:t,lang})});const j=await r.json();if(j.reply){w.textContent='🤖 '+j.reply+x([' (AI-generated, educational only)',' (AI-जनित, केवल शैक्षिक)']);xp(5);return}}catch(e){}}
+await new Promise(r=>setTimeout(r,600));const k=KB.find(k=>k[0].test(t.toLowerCase()));w.textContent=x(k?k[1]:FB)+x([' (demo model, not financial advice)',' (डेमो मॉडल, वित्तीय सलाह नहीं)']);xp(5)}
+/* scam detector */
+const RULES=[[/otp|pin|cvv|password|ओटीपी/i,['Asks for sensitive info (OTP/PIN/password)','संवेदनशील जानकारी (OTP/PIN/पासवर्ड) माँगी जा रही है'],30],[/urgent|immediately|today|expire|block|last chance|तुरंत|आज ही/i,['Creates urgency or fear','जल्दबाज़ी या डर का दबाव बनाया जा रहा है'],20],[/https?:\/\/|bit\.ly|\.xyz|\.top|tinyurl/i,['Contains a suspicious link','संदिग्ध लिंक है'],20],[/won|prize|cashback|lottery|congratulations|reward|free|बधाई|इनाम|लॉटरी/i,['Too-good-to-be-true offer','बहुत अच्छा-सच-नहीं-लगने वाला ऑफर'],20],[/kyc|account (is )?(blocked|suspended)/i,['Fake KYC / account-block pattern','नकली KYC / अकाउंट-ब्लॉक पैटर्न'],15],[/pay ₹?1\b|collect request|refund/i,['Fake UPI collect / refund trick','नकली UPI कलेक्ट / रिफंड ट्रिक'],20],[/guaranteed|double|100% (return|profit)|गारंटी/i,['False promise of guaranteed returns','गारंटीड रिटर्न का झूठा वादा'],25]];
+function samp(){$('sm').value=lang==='hi'?'आपका KYC आज ही एक्सपायर हो रहा है! http://sbi-kyc.xyz पर क्लिक करके OTP शेयर करो, वरना अकाउंट ब्लॉक हो जाएगा':'Your KYC expires today! Click http://sbi-kyc.xyz and share OTP to avoid account block';scan()}
+function scan(quiet){const t=$('sm').value;if(!t.trim())return;let s=0,f=[];RULES.forEach(r=>{if(r[0].test(t)){s+=r[2];f.push(x(r[1]))}});s=Math.min(100,s);
+const col=s>60?'#f28b82':s>25?'#f6c453':'#7fd1ae',lab=s>60?x(['HIGH RISK 🚨','ज़्यादा खतरा 🚨']):s>25?x(['SUSPICIOUS ⚠️','संदिग्ध ⚠️']):x(['Looks low-risk ✅','कम खतरा लगता है ✅']);
+$('sr').innerHTML=`<b>${lab}</b> · ${x(['Risk','खतरा'])} ${s}%<div class="meter"><i style="width:${s}%;background:${col}"></i></div>`+(f.map(z=>`<div class="flag">⚠️ ${z}</div>`).join('')||`<div class="flag ok">${x(['No major red flags found.','कोई बड़ा रेड फ्लैग नहीं मिला।'])}</div>`)+`<p class="note">${x(['Tip: never click the link. Verify through your bank’s official app. Cyber-fraud helpline: 1930.','टिप: लिंक पर क्लिक मत करो। अपने बैंक के आधिकारिक ऐप से जाँचो। साइबर फ्रॉड हेल्पलाइन: 1930।'])}</p>`;if(!quiet)xp(10)}
+/* budget */
+const CAT={Food:'खाना',Education:'पढ़ाई',Entertainment:'मनोरंजन',Travel:'यात्रा',Shopping:'शॉपिंग',Other:'अन्य'};const cn=c=>lang==='hi'?CAT[c]:c;
+let E=[['Lunch & snacks',3200,'Food'],['Online course',1800,'Education'],['OTT + games',1500,'Entertainment'],['Bus pass',900,'Travel'],['Sneakers',2400,'Shopping']],bc;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function addE(){const a=+$('ea').value;if(!a)return;E.push([$('en').value||'Expense',a,$('ec').value]);$('en').value=$('ea').value='';draw();xp(3)}
+function draw(){const sp=E.reduce((s,e)=>s+e[1],0),inc=+$('inc').value||0,c={};E.forEach(e=>c[e[2]]=(c[e[2]]||0)+e[1]);
+$('sp').textContent=R(sp);$('rm').textContent=R(inc-sp);const k=Object.keys(c).sort((a,b)=>c[b]-c[a]),top=k[0];
+$('dna').innerHTML=x([`Your biggest spend is <b>${cn(top)}</b> (${Math.round(c[top]/sp*100)}%). `+(inc-sp<inc*.2?'You are saving under 20% — try trimming Shopping or Entertainment.':'Great! You are saving 20%+ 🎉'),`आपका सबसे बड़ा खर्च <b>${cn(top)}</b> है (${Math.round(c[top]/sp*100)}%)। `+(inc-sp<inc*.2?'बचत 20% से कम है — शॉपिंग या मनोरंजन थोड़ा घटाकर देखो।':'शानदार! आप 20%+ बचा रहे हैं 🎉')]);
+$('tb').innerHTML=`<tr><th>${x(['Item','चीज़'])}</th><th>${x(['Category','श्रेणी'])}</th><th>₹</th></tr>`+E.map(e=>`<tr><td>${esc(e[0])}</td><td>${cn(e[2])}</td><td>${R(e[1])}</td></tr>`).join('');
+if(!$('budget').classList.contains('on'))return;if(bc)bc.destroy();bc=new Chart($('bc'),{type:'doughnut',data:{labels:k.map(cn),datasets:[{data:k.map(z=>c[z]),backgroundColor:['#d9d2f7','#cdeee0','#ffdccb','#fff1b8','#cfe3ff','#f6d0e6']}]},options:{plugins:{legend:{position:'bottom'}}}})}
+let SU=[['Netflix',649,12],['Spotify',119,12],['Cloud storage',1500,1]];
+function addS(){const a=+$('sa').value;if(!a)return;SU.push([$('sn').value||'Subscription',a,+$('sf').value]);$('sn').value=$('sa').value='';subs();xp(3)}
+function subs(){const y=SU.map(s=>s[1]*s[2]),t=y.reduce((a,b)=>a+b,0),m=y.indexOf(Math.max(...y)),mo=x(['mo','माह']),yr=x(['yr','साल']);
+$('so').innerHTML=`<div class="flag ok">${x(['Total','कुल'])}: <b>${R(t)}/${yr}</b> (${R(t/12)}/${mo})</div><table>`+SU.map((s,i)=>`<tr><td>${esc(s[0])}</td><td>${R(s[1])}/${s[2]==12?mo:yr}</td><td>${R(y[i])}/${yr}</td></tr>`).join('')+`</table><div class="flag">🕵️ ${x(['Most expensive','सबसे महँगा'])}: <b>${esc(SU[m][0])}</b>. ${x(['Do you really use it? Cancel unused subscriptions and save.','क्या आप सच में इसे इस्तेमाल करते हैं? बेकार सब्सक्रिप्शन रद्द करके बचत करो।'])}</div>`}
+/* grow */
+let tc,ic;function tm(){const m=+$('s1').value,y=+$('s2').value,r=+$('s3').value;$('v1').textContent=R(m);$('v2').textContent=y;$('v3').textContent=r;const i=r/1200;let b=0,L=[],V=[],I=[];
+for(let n=1;n<=y*12;n++){b=(b+m)*(1+i);if(n%12===0){L.push('Y'+n/12);V.push(Math.round(b));I.push(m*n)}}
+$('r1').textContent=R(m*y*12);$('r2').textContent=R(b);if(!$('grow').classList.contains('on'))return;if(tc)tc.destroy();
+tc=new Chart($('tc'),{type:'line',data:{labels:L,datasets:[{label:x(['Value','मूल्य']),data:V,borderColor:'#7b6cd9',backgroundColor:'#d9d2f755',fill:true,tension:.3},{label:x(['Invested','निवेशित']),data:I,borderColor:'#6cc4a1',tension:.3}]}})}
+function infl(){const a=+$('ia').value||0,y=+$('iy').value||1,r=(+$('ir').value||0)/100,f=a*Math.pow(1+r,y),pw=a/Math.pow(1+r,y);
+$('io').innerHTML=`<div class="flag">${x([`Goods costing ${R(a)} today will cost ~<b>${R(f)}</b> in ${y} years.`,`आज ${R(a)} का सामान ${y} साल बाद ~<b>${R(f)}</b> का होगा।`])}</div><div class="flag">${x([`${R(a)} today will only buy ~<b>${R(pw)}</b> worth of goods in ${y} years.`,`आज के ${R(a)} से ${y} साल बाद सिर्फ ~<b>${R(pw)}</b> का सामान मिलेगा।`])}</div>`;
+if(!$('grow').classList.contains('on'))return;const L=[],A=[],B=[];for(let i=0;i<=y;i++){L.push('Y'+i);A.push(Math.round(a*Math.pow(1+r,i)));B.push(Math.round(a/Math.pow(1+r,i)))}
+if(ic)ic.destroy();ic=new Chart($('ic'),{type:'line',data:{labels:L,datasets:[{label:x(['Cost of same goods','उसी सामान की कीमत']),data:A,borderColor:'#f28b82',tension:.3},{label:x(['Purchasing power of your money','आपके पैसे की खरीद-शक्ति']),data:B,borderColor:'#7b6cd9',tension:.3}]}})}
+/* tax */
+const NEW=[[4e5,0],[8e5,.05],[12e5,.1],[16e5,.15],[2e6,.2],[24e5,.25],[1e12,.3]],OLD=[[2.5e5,0],[5e5,.05],[1e6,.2],[1e12,.3]];
+function slab(t,S){let z=0,p=0;for(const[l,r]of S){if(t>p){z+=(Math.min(t,l)-p)*r;p=l}}return z}
+function tax(){const g=+$('txg').value||0,nT=Math.max(0,g-75000),oT=Math.max(0,g-50000-Math.min(+$('tx80').value||0,150000)-(+$('txo').value||0));
+let n=slab(nT,NEW);n=nT<=12e5?0:Math.min(n,nT-12e5);let o=slab(oT,OLD);if(oT<=5e5)o=0;n*=1.04;o*=1.04;const nw=n<=o,d=Math.abs(n-o);
+$('txr').innerHTML=`<table><tr><th></th><th>${x(['New regime','नई व्यवस्था'])}</th><th>${x(['Old regime','पुरानी व्यवस्था'])}</th></tr><tr><td>${x(['Taxable income','कर योग्य आय'])}</td><td>${R(nT)}</td><td>${R(oT)}</td></tr><tr><td><b>${x(['Tax + 4% cess','टैक्स + 4% सेस'])}</b></td><td><b>${R(n)}</b></td><td><b>${R(o)}</b></td></tr></table><div class="flag ok">✅ ${x([(nw?'New':'Old')+' regime is cheaper here'+(d?' — you save '+R(d):' (equal)'),(nw?'नई':'पुरानी')+' व्यवस्था यहाँ सस्ती है'+(d?' — बचत '+R(d):' (दोनों बराबर)')])}</div>`}
+/* generic mini-game */
+function mkGame(id,items,ic,b){let i=0,s=0,a=null;const r=()=>{const c=$(id);if(i>=items.length){c.innerHTML=`<div class="big">${s}/${items.length}</div><button class="btn" id="${id}r">${x(['Play again','फिर खेलो'])}</button>`;$(id+'r').onclick=()=>{i=s=0;a=null;r()};return}
+const m=items[i];c.innerHTML=`<p class="note">${i+1}/${items.length}</p><div class="flag" style="font-size:15px">${ic} ${x(m[0])}</div>`+(a===null?`<div class="row">${b.map((z,k)=>`<button class="btn" data-k="${k}">${x(z)}</button>`).join('')}</div>`:`<div class="flag ${a===m[1]?'ok':''}">${a===m[1]?'🎉':'❌'} ${m[2]?x(m[2]):x(a===m[1]?['Correct!','सही!']:['Not quite.','ठीक नहीं।'])}</div><button class="btn" id="${id}n">${x(['Next','अगला'])}</button>`);
+c.querySelectorAll('[data-k]').forEach(z=>z.onclick=()=>{a=+z.dataset.k===0?1:0;if(a===m[1]){s++;xp(2)}r()});if(a!==null)$(id+'n').onclick=()=>{i++;a=null;r()}};return r}
+const SW=[[['"Your KYC expires today! Click bit.ly/kyc-update and share the OTP."','"आपका KYC आज एक्सपायर हो रहा है! bit.ly/kyc-update पर क्लिक करके OTP शेयर करो।"'],1,['Scam: urgency + link + OTP request.','स्कैम: जल्दबाज़ी + लिंक + OTP की माँग।']],
+[['"₹450 debited at Cafe Latte via UPI. Bal: ₹2,310. Not you? Call the number on your card."','"Cafe Latte पर UPI से ₹450 कटे। बैलेंस: ₹2,310। आप नहीं? कार्ड पर दिए नंबर पर कॉल करें।"'],0,['Safe: an information-only alert, no link, no OTP.','सुरक्षित: सिर्फ जानकारी वाला अलर्ट, न लिंक, न OTP।']],
+[['"You won a ₹25 lakh lottery! Pay a ₹999 fee to claim."','"आपने ₹25 लाख की लॉटरी जीती! पाने के लिए ₹999 फीस दो।"'],1,['Scam: you cannot win a lottery you never entered.','स्कैम: जो लॉटरी भरी ही नहीं उसे जीत नहीं सकते।']],
+[['"Your login OTP is 482913. Never share it with anyone."','"आपका लॉगिन OTP 482913 है। इसे किसी से शेयर न करें।"'],0,['Safe — a genuine OTP message. Just never share it.','सुरक्षित — असली OTP मैसेज। बस किसी को बताना मत।']],
+[['"Collect request: pay ₹1 to receive ₹5,000 cashback."','"कलेक्ट रिक्वेस्ट: ₹5,000 कैशबैक पाने के लिए ₹1 भेजो।"'],1,['Scam: you never pay to receive money.','स्कैम: पैसे पाने के लिए पैसे नहीं देने पड़ते।']],
+[['"Invest ₹10,000 today, get ₹20,000 in 7 days. Guaranteed!"','"आज ₹10,000 लगाओ, 7 दिन में ₹20,000 पाओ। गारंटीड!"'],1,['Scam: guaranteed high returns do not exist.','स्कैम: गारंटीड ऊँचा रिटर्न होता ही नहीं।']],
+[['"Your electricity bill of ₹1,240 is due on 20 Nov. Pay via the official app."','"आपका ₹1,240 का बिजली बिल 20 नवंबर को देय है। आधिकारिक ऐप से भरें।"'],0,['Safe: a normal reminder pointing to the official app.','सुरक्षित: आधिकारिक ऐप की ओर इशारा करने वाला सामान्य रिमाइंडर।']],
+[['"Hi, I’m from your bank. Please read me the 6-digit code we just sent."','"नमस्ते, मैं आपके बैंक से हूँ। अभी भेजा गया 6 अंकों का कोड बताइए।"'],1,['Scam: banks never ask for your OTP.','स्कैम: बैंक कभी OTP नहीं माँगता।']]];
+const NW=[[['Rent','किराया'],1],[['Latest smartphone upgrade','नया स्मार्टफोन अपग्रेड'],0],[['Groceries','राशन'],1],[['Concert ticket','कॉन्सर्ट टिकट'],0],[['Medicine','दवाइयाँ'],1],[['Designer sneakers','डिज़ाइनर स्नीकर्स'],0],[['School fees','स्कूल फीस'],1],[['Extra streaming subscription','एक्स्ट्रा स्ट्रीमिंग सब्सक्रिप्शन'],0]];
+const G1=mkGame('swipe',SW,'✉️',[['🚨 Scam','🚨 स्कैम'],['✅ Safe','✅ सुरक्षित']]),G2=mkGame('nvw',NW,'🛒',[['Need','ज़रूरत'],['Want','चाहत']]);
+/* quiz */
+const QZ=[[['What is a SIP?','SIP क्या है?'],[['Regular fixed investing in a mutual fund','म्यूचुअल फंड में नियमित तय निवेश'],['A bank loan','बैंक लोन'],['A tax form','टैक्स फॉर्म']],0],[['Do you need a UPI PIN to RECEIVE money?','पैसे RECEIVE करने के लिए UPI PIN चाहिए?'],[['Yes, always','हाँ, हमेशा'],['Never','कभी नहीं'],['Only at night','सिर्फ रात को']],1],[['Diversification means…','डाइवर्सिफिकेशन यानी…'],[['All money in one stock','सारा पैसा एक स्टॉक में'],['Spreading money across assets','पैसा अलग-अलग जगह फैलाना'],['Only holding cash','सिर्फ कैश रखना']],1],[['Effect of inflation?','महंगाई का असर?'],[['Money buys less over time','समय के साथ पैसे से कम सामान मिलता है'],['Prices fall','कीमतें गिरती हैं'],['Salary doubles','सैलरी दोगुनी']],0],[['A good emergency fund is…','अच्छा इमरजेंसी फंड होता है…'],[['1 week of expenses','1 हफ्ते का खर्च'],['3–6 months of expenses','3–6 महीने का खर्च'],['Not needed','ज़रूरी नहीं']],1],[['"Guaranteed 100% returns" is…','"गारंटीड 100% रिटर्न" है…'],[['Safe','सुरक्षित'],['Likely a scam','शायद स्कैम'],['Government approved','सरकार से मंज़ूर']],1]];
+let qi=0,qs=0;
+function quiz(){const q=QZ[qi];if(!q){$('qz').innerHTML=`<div class="big">${qs}/${QZ.length}</div><p>${qs>4?x(['🏆 Money Master!','🏆 मनी मास्टर!']):qs>2?x(['👍 Nice try, practise a bit more','👍 अच्छा प्रयास, थोड़ा और अभ्यास']):x(['🌱 Learning mode — ask the Assistant','🌱 सीखने का मोड — असिस्टेंट से पूछो'])}</p><button class="btn" onclick="qi=qs=0;quiz()">${x(['Retry','फिर से'])}</button>`;return}
+$('qz').innerHTML=`<p class="note">Q${qi+1}/${QZ.length}</p><p><b>${x(q[0])}</b></p>`+q[1].map((o,i)=>`<button class="opt" onclick="pick(this,${i})">${x(o)}</button>`).join('')}
+function pick(b,i){const q=QZ[qi],bs=b.parentNode.querySelectorAll('.opt');bs.forEach((z,j)=>{z.disabled=true;if(j===q[2])z.classList.add('good')});if(i!==q[2])b.classList.add('bad');else{qs++;xp(5)}setTimeout(()=>{qi++;quiz()},900)}
+const MY=[[['Myth: A credit card is free money','मिथक: क्रेडिट कार्ड मुफ्त पैसा है'],['Fact: It is a loan; unpaid dues attract high interest.','तथ्य: यह लोन है; बकाया पर ऊँचा ब्याज लगता है।']],[['Myth: Investing is only for the rich','मिथक: निवेश सिर्फ अमीरों के लिए है'],['Fact: A SIP can start from ₹500.','तथ्य: SIP ₹500 से भी शुरू हो सकती है।']],[['Myth: FD is always the best','मिथक: FD हमेशा सबसे अच्छी है'],['Fact: FDs are safe, but returns can lag inflation.','तथ्य: FD सुरक्षित है, पर रिटर्न महंगाई से कम हो सकता है।']],[['Myth: Saving tax means only 80C','मिथक: टैक्स बचाना मतलब सिर्फ 80C'],['Fact: The new regime has few deductions — compare both regimes.','तथ्य: नई व्यवस्था में कटौतियाँ कम हैं — दोनों की तुलना करो।']]];
+let mf=[];function myths(){$('my').innerHTML=MY.map((m,i)=>`<button class="tile t${i%4+1}" onclick="mf[${i}]=!mf[${i}];myths()"><p>${x(mf[i]?m[1]:m[0])}</p></button>`).join('')}
+/* FinFlix */
+const EP=[['🐷',['Ep 1 · The Last ₹500','एपिसोड 1 · आख़िरी ₹500'],['Coin the Piggy has ₹500 for 2 weeks. His friends invite him to a ₹300 pizza party. What does Coin do?','कॉइन द पिग्गी के पास 2 हफ्ते के लिए ₹500 हैं। दोस्त उसे ₹300 की पिज़्ज़ा पार्टी में बुलाते हैं। कॉइन क्या करे?'],[[['Spend ₹300 and go','₹300 खर्च करके जाओ'],['Great night, but only ₹200 left for 12 days. Tight!','मज़ेदार रात, पर 12 दिन के लिए सिर्फ ₹200। तंगी!'],1],[['Say no and save everything','मना करो और सब बचाओ'],['Safe, but Coin feels left out. Balance matters.','सुरक्षित, पर कॉइन अकेला महसूस करता है। संतुलन ज़रूरी है।'],1],[['Go with a ₹150 limit, save ₹200','₹150 की सीमा के साथ जाओ, ₹200 बचाओ'],['Planned fun plus savings. That is smart budgeting!','प्लान किया मज़ा और बचत भी। यही स्मार्ट बजटिंग है!'],2]],['Lesson: plan fun inside a budget.','सीख: बजट के अंदर मज़े की योजना बनाओ।']],
+['🦊',['Ep 2 · Scam Files','एपिसोड 2 · स्कैम फाइल्स'],['Rupee the Fox gets a call: "We are from your bank. Share the OTP or your account will be blocked!"','रुपी द फॉक्स को कॉल आता है: "हम आपके बैंक से हैं। OTP बताओ वरना अकाउंट ब्लॉक होगा!"'],[[['Share the OTP quickly','जल्दी से OTP बता दो'],['Oh no! The scammer emptied the account.','अरे नहीं! स्कैमर ने अकाउंट खाली कर दिया।'],0],[['Hang up and call the bank’s official number','कॉल काटो और बैंक के आधिकारिक नंबर पर कॉल करो'],['Perfect! The bank confirms it was a scam. Rupee is safe.','बढ़िया! बैंक ने बताया यह स्कैम था। रुपी सुरक्षित है।'],2],[['Ask the caller’s name, then share the OTP','कॉलर का नाम पूछकर OTP बता दो'],['A name proves nothing. Never share an OTP.','नाम से कुछ साबित नहीं होता। OTP कभी मत बताओ।'],0]],['Lesson: banks never ask for your OTP.','सीख: बैंक कभी OTP नहीं माँगता।']],
+['🦉',['Ep 3 · Rich Decisions','एपिसोड 3 · रिच डिसीज़न्स'],['Professor Owl can invest ₹2,000 a month. A friend says "put it all into this one hot stock tip!"','प्रोफेसर आउल हर महीने ₹2,000 निवेश कर सकता है। दोस्त कहता है "सब इसी एक हॉट स्टॉक टिप में लगा दो!"'],[[['Go all-in on the tip','पूरा पैसा टिप में लगाओ'],['Too risky. One bad bet can wipe out your savings.','बहुत जोखिम। एक गलत दाँव से सारी बचत डूब सकती है।'],0],[['Start a small diversified SIP and keep learning','छोटी डाइवर्सिफाइड SIP शुरू करो और सीखते रहो'],['Wise! Steady, diversified and patient.','समझदारी! नियमित, डाइवर्सिफाइड और धैर्य के साथ।'],2],[['Keep cash under the mattress','कैश गद्दे के नीचे रखो'],['Safe from markets, but inflation slowly shrinks it.','बाज़ार से सुरक्षित, पर महंगाई उसे धीरे-धीरे घटाती है।'],1]],['Lesson: diversify and start small.','सीख: डाइवर्सिफाई करो और छोटी शुरुआत करो।']]];
+let ep=null,epc=null;
+function epR(){const c=$('ep');if(ep===null){c.innerHTML='<div class="grid">'+EP.map((e,i)=>`<button class="tile t${i+1}" onclick="ep=${i};epc=null;epR()"><div class="big-e">${e[0]}</div><h3>${x(e[1])}</h3><p>▶ ${x(['Watch & decide','देखो और फैसला लो'])}</p></button>`).join('')+'</div>';return}
+const e=EP[ep];c.innerHTML=`<div class="ep"><div class="big-e">${e[0]}</div><h3>${x(e[1])}</h3></div><p>${x(e[2])}</p>`+(epc===null?e[3].map((o,i)=>`<button class="opt" onclick="epc=${i};xp(${e[3][i][2]*3});epR()">${x(o[0])}</button>`).join(''):`<div class="flag ${e[3][epc][2]===2?'ok':''}">${e[3][epc][2]===2?'🌟':e[3][epc][2]===1?'😐':'💥'} ${x(e[3][epc][1])}</div><p class="note">💡 ${x(e[4])}</p><button class="btn" onclick="epc=null;epR()">${x(['Try again','फिर कोशिश'])}</button> <button class="btn" style="background:var(--mint);color:#2b2d3a" onclick="ep=null;epR()">${x(['All episodes','सभी एपिसोड'])}</button>`)}
+const RH=[['Spend with thought, save a lot.','सोच-समझकर खर्च करो, ज़्यादा बचत करो।',['Track every expense before you spend. Try the 50/30/20 rule in the Budget tab.','खर्च से पहले हर खर्च ट्रैक करो। बजट टैब में 50/30/20 नियम आज़माओ।']],['Make money count, make your future mount.','पैसे को गिनती में लाओ, भविष्य को ऊँचा उठाओ।',['Small regular SIPs grow through compounding. Slide the Time Machine to see it.','छोटी नियमित SIP चक्रवृद्धि से बढ़ती है। टाइम मशीन स्लाइड करके देखो।']],['Think it right, spend it bright.','सही सोचो, समझदारी से खर्च करो।',['Separate needs from wants first. Play Needs vs Wants.','पहले ज़रूरत और चाहत अलग करो। ज़रूरत बनाम चाहत खेलो।']],['Know the flow, watch your money grow.','पैसे का बहाव समझो, पैसा बढ़ता देखो।',['Cash flow = income minus expenses. Know it every month.','कैश फ्लो = आय घटा खर्च। हर महीने इसे जानो।']]];
+function rhymes(){$('rh').innerHTML=RH.map((r,i)=>`<div class="flag ok" style="padding:10px"><button class="btn" aria-label="Play rhyme" onclick="sing(${i})">🔊</button> <b>${lang==='hi'?r[1]:r[0]}</b><div class="note" style="margin-top:4px">${x(r[2])}</div></div>`).join('')}
+function sing(i){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(lang==='hi'?RH[i][1]:RH[i][0]);u.lang=lang==='hi'?'hi-IN':'en-IN';u.rate=.85;u.pitch=1.2;speechSynthesis.speak(u);xp(1)}catch(e){}}
+/* story */
+const S={s:[['You have ₹1,000 and your friends planned a trip. What do you do?','तुम्हारे पास ₹1,000 हैं और दोस्तों ने ट्रिप प्लान की है। क्या करोगे?'],[[['Spend it all on the trip','सब ट्रिप पर खर्च'],'a'],[['Save ₹400, spend ₹600','₹400 बचाओ, ₹600 खर्च'],'b'],[['Set a goal: save ₹300 and pick a cheaper plan','लक्ष्य बनाओ: ₹300 बचाओ और सस्ता प्लान चुनो'],'c']]],
+a:[['Fun, but you ran out of money before month-end and had to borrow 😟','मज़ा आया, पर महीने के अंत से पहले पैसे खत्म, उधार लेना पड़ा 😟'],[[['Try again','फिर कोशिश'],'s']],['🎓 Lesson: spending without a plan means stress','🎓 सीख: बिना योजना खर्च यानी तनाव']],
+b:[['Balanced! A bit of fun, a bit of safety 👍','संतुलित! थोड़ा मज़ा, थोड़ी सुरक्षा 👍'],[[['Try again','फिर कोशिश'],'s']],['🏅 Badge: Balanced Saver (+20 XP)','🏅 बैज: बैलेंस्ड सेवर (+20 XP)']],
+c:[['You picked a cheaper plan, put ₹300 into your laptop fund, and still enjoyed the trip! 🌟','तुमने सस्ता प्लान चुना, ₹300 लैपटॉप फंड में डाले, और ट्रिप का मज़ा भी लिया! 🌟'],[[['Try again','फिर कोशिश'],'s']],['🏆 Badge: Goal Getter (+30 XP)','🏆 बैज: गोल गेटर (+30 XP)']]};
+let sk='s';function storyR(){const n=S[sk];$('sb').innerHTML=`<p>${x(n[0])}</p>`+n[1].map(o=>`<button class="btn" style="margin:4px" onclick="sk='${o[1]}';if(sk==='c')xp(30);if(sk==='b')xp(20);storyR()">${x(o[0])}</button>`).join('')+(n[2]?`<p class="note">${x(n[2])}</p>`:'')}
+/* language / init */
+function apply(){document.documentElement.lang=lang;
+document.querySelectorAll('[data-h]').forEach(e=>{if(e._e===undefined)e._e=e.textContent;e.textContent=lang==='hi'?e.dataset.h:e._e});
+document.querySelectorAll('[data-ph]').forEach(e=>{if(!e._p)e._p=e.placeholder;e.placeholder=lang==='hi'?e.dataset.ph:e._p});
+$('lb').textContent=lang==='hi'?'English':'हिंदी';$('lg').value=lang;nav();tiles();chips();fact();quiz();G1();G2();myths();epR();rhymes();storyR();draw();subs();tax();tm();infl();if($('sm').value.trim())scan(true)}
+apply();
+</script></body></html>
