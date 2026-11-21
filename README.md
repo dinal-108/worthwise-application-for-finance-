@@ -1,4 +1,5 @@
 # 🌸 WorthWise – AI for Finance
+
 WorthWise is a pastel, mobile-friendly web app that teaches young people money skills through AI, games and cartoon stories. Built for Arthaton 2026 (AI for Finance).
 
 ## What it does
@@ -15,7 +16,7 @@ Download `index.html` and open it in any browser. No installation needed (intern
 
 ## AI models and APIs used
 - The submitted demo uses a rule-based demo model and dummy data. No external AI API is called and no real money is involved.
-- Planned real AI: a small backend can call the Anthropic Claude API while keeping the API key on the server. This is not enabled in the demo.
+- Planned real AI: a small backend can call an external AI API while keeping the API key on the server. This is not enabled in the demo.
 - Library: Chart.js (charts).
 
 ## Important
