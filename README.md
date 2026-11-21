@@ -1,6 +1,4 @@
 # 🌸 WorthWise – AI for Finance
-*Learn today, lead your money tomorrow.*
-
 WorthWise is a pastel, mobile-friendly web app that teaches young people money skills through AI, games and cartoon stories. Built for Arthaton 2026 (AI for Finance).
 
 ## What it does
@@ -24,4 +22,4 @@ Download `index.html` and open it in any browser. No installation needed (intern
 Educational demo only. Not financial, tax or investment advice. Returns shown are illustrative assumptions.
 
 ## Team
-Dinal, <your college name>
+Dinal.
